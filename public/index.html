@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chá Revelação - Qual será?</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Vote no Sexo do Bebê!</h1>
+        <p>É menino ou menina? Dê seu palpite!</p>
+        <div class="vote-buttons">
+            <button id="voteBoy" class="boy-btn">Menino 🧸</button>
+            <button id="voteGirl" class="girl-btn">Menina 🎀</button>
+        </div>
+        
+        <div id="nameInputContainer" class="name-input-container">
+            <input type="text" id="nameInput" placeholder="Digite seu nome" />
+            <button id="confirmNameButton">✔</button>
+        </div>
+
+        <div class="results">
+            <h2>Resultado dos Votos</h2>
+            <canvas id="resultsChart"></canvas>
+            <button id="toggleListButton" style="display:none;">Votantes</button>
+            <ul id="voterList" style="display:none;"></ul>
+        </div>
+        <footer>
+            <p>Desenvolvido pelo pai ❤️</p>
+        </footer>        
+        
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

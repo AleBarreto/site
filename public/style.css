@@ -1,0 +1,122 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #FFF5E1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: #FFF;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    position: relative;
+}
+
+h1 {
+    color: #FFB6C1;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.vote-buttons {
+    margin: 20px 0;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.boy-btn {
+    background-color: #87CEEB;
+    color: white;
+}
+
+.girl-btn {
+    background-color: #FFB6C1;
+    color: white;
+}
+
+button:hover {
+    background-color: #f5deb3;
+}
+
+.name-input-container {
+    display: none;
+    margin: 20px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#nameInput {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #FFB6C1;
+    margin-right: 10px;
+}
+
+.results {
+    margin-top: 30px;
+}
+
+canvas {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.results h2 {
+    color: #FFB6C1;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #FFF;
+    border-top: 1px solid #FFB6C1;
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+#toggleListButton {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: #90EE90;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#toggleListButton:hover {
+    background-color: #32CD32;
+    transform: translateY(-2px);
+}
+
+#toggleListButton:active {
+    transform: translateY(2px);
+}
