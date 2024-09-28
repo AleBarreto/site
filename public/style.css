@@ -1,5 +1,5 @@
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Arial', sans-serif; /* Alterei para Arial */
     background-color: #FFF5E1;
     display: flex;
     justify-content: center;
@@ -14,8 +14,7 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 90%; /* Ajustado para ocupar 90% da largura em dispositivos menores */
-    max-width: 350px; /* Limite de largura */
+    width: 350px;
     position: relative;
 }
 
@@ -31,13 +30,13 @@ h1 {
 
 button {
     padding: 12px 25px;
-    font-size: 16px; /* Ajustado para evitar zoom */
+    font-size: 20px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
     margin: 10px;
     transition: transform 0.3s ease, background-color 0.3s ease;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Arial', sans-serif; /* Alterei para Arial */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -67,7 +66,6 @@ button:hover {
     border-radius: 8px;
     border: 2px solid #FFB6C1;
     margin-right: 10px;
-    font-size: 16px; /* Ajustado para evitar zoom */
 }
 
 .results {
@@ -83,7 +81,7 @@ canvas {
     color: #FFB6C1;
     font-size: 24px;
     margin-bottom: 20px;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Arial', sans-serif; /* Alterei para Arial */
 }
 
 footer {
@@ -104,7 +102,7 @@ footer p {
     display: block;
     margin: 20px auto;
     padding: 12px 20px;
-    font-size: 16px; /* Ajustado para evitar zoom */
+    font-size: 20px;
     border: none;
     border-radius: 12px;
     background-color: #90EE90;
@@ -121,15 +119,4 @@ footer p {
 
 #toggleListButton:active {
     transform: translateY(2px);
-}
-
-/* Media Queries para Responsividade */
-@media (max-width: 500px) {
-    h1 {
-        font-size: 24px; /* Ajusta o tamanho do cabeçalho para telas menores */
-    }
-
-    .container {
-        width: 90%; /* Reduz a largura para dispositivos menores */
-    }
 }

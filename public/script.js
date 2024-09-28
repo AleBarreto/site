@@ -1,6 +1,6 @@
 // Variáveis de votos e votantes
-let boyVotes = 0;
-let girlVotes = 0;
+let boyVotes = 1;
+let girlVotes = 1;
 const voters = [];
 let currentVote = '';
 
@@ -118,3 +118,4 @@ function displayVoterList() {
 
 // Inicializa a lista de votantes
 displayVoterList();
+updateChart();
