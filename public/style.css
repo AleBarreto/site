@@ -26,11 +26,13 @@ h1 {
 
 .vote-buttons {
     margin: 20px 0;
+    display: flex; /* Mantém os botões lado a lado */
+    justify-content: center; /* Centraliza os botões */
 }
 
 button {
     padding: 12px 25px;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
