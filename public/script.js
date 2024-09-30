@@ -1,6 +1,6 @@
 // Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
 // Função para obter configurações do Firebase
@@ -76,7 +76,7 @@ getFirebaseConfig().then(firebaseConfig => {
         if (name) {
             // Atualiza os votos no Firestore
             const voteRef = doc(db, "votes", "voteResults");
-            const voterRef = doc(db, "voters", name);
+            const voterRef = doc(db, "voters", name); // A referência do votante permanece a mesma
 
             try {
                 const voteDoc = await getDoc(voteRef);
@@ -136,10 +136,10 @@ getFirebaseConfig().then(firebaseConfig => {
 
     // Função para carregar a lista de votantes do Firestore
     function loadVoters() {
-        const voterRef = doc(db, "voters");
+        const voterRef = collection(db, "voters"); // Altere para collection
 
         onSnapshot(voterRef, (querySnapshot) => {
-            voters.length = 0;
+            voters.length = 0; // Limpa a lista de votantes
             querySnapshot.forEach((doc) => {
                 voters.push(doc.data());
             });
