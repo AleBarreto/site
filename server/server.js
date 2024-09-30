@@ -5,11 +5,14 @@ const path = require('path');
 const { initializeApp } = require('firebase/app');
 const { getFirestore, doc, getDoc, setDoc, updateDoc } = require('firebase/firestore');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config(); // Carrega variáveis do .env
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors());
 
 // Middleware para interpretar JSON
 app.use(express.json()); // Para lidar com requisições JSON

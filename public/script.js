@@ -5,7 +5,7 @@ import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9
 
 // Função para obter configurações do Firebase
 async function getFirebaseConfig() {
-    const response = await fetch('/firebase-config');
+    const response = await fetch('https://sitenode-serve-server-js.onrender.com/firebase-config');
     if (!response.ok) {
         throw new Error('Erro ao obter configurações do Firebase');
     }
