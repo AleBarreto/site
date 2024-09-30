@@ -28,7 +28,7 @@ voteGirlButton.addEventListener('click', () => {
 // Exibe o campo de entrada para o nome
 function showNameInput() {
     nameInputContainer.style.display = 'flex';
-    nameInput.placeholder = "Digite seu nome e pressione 'Enter'";
+    nameInput.placeholder = "seu nome";
     nameInput.focus();
 }
 

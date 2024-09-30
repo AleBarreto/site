@@ -136,3 +136,7 @@ footer p {
 #toggleListButton:active {
     transform: translateY(2px);
 }
+
+input[type="text"] {
+    font-size: 16px;  /* Evita o zoom no iOS */
+}
