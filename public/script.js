@@ -1,116 +1,205 @@
-// Variáveis de votos e votantes
-let boyVotes = 1;
-let girlVotes = 1;
-const voters = [];
-let currentVote = '';
+// Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
-// Referências aos elementos
-const voteBoyButton = document.getElementById('voteBoy');
-const voteGirlButton = document.getElementById('voteGirl');
-const nameInputContainer = document.getElementById('nameInputContainer');
-const nameInput = document.getElementById('nameInput');
-const confirmNameButton = document.getElementById('confirmNameButton');
-const resultsChart = document.getElementById('resultsChart');
-const toggleListButton = document.getElementById('toggleListButton');
-const voterList = document.getElementById('voterList');
-
-// Funções de voto
-voteBoyButton.addEventListener('click', () => {
-    currentVote = 'Menino'; // Define o voto atual
-    showNameInput();
-});
-
-voteGirlButton.addEventListener('click', () => {
-    currentVote = 'Menina'; // Define o voto atual
-    showNameInput();
-});
-
-// Exibe o campo de entrada para o nome
-function showNameInput() {
-    nameInputContainer.style.display = 'flex';
-    nameInput.placeholder = "seu nome";
-    nameInput.focus();
+// Função para obter configurações do Firebase
+async function getFirebaseConfig() {
+    const response = await fetch('/firebase-config');
+    if (!response.ok) {
+        throw new Error('Erro ao obter configurações do Firebase');
+    }
+    return response.json();
 }
 
-// Captura o evento de Enter
-nameInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        confirmVote();
+// Inicialize o Firebase com as configurações obtidas
+getFirebaseConfig().then(firebaseConfig => {
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth();
+
+    // Autenticação anônima
+    signInAnonymously(auth)
+        .then(() => {
+            console.log("Usuário autenticado anonimamente.");
+        })
+        .catch((error) => {
+            console.error("Erro na autenticação anônima: ", error);
+        });
+
+    // Variáveis de votos e votantes
+    let boyVotes = 0;
+    let girlVotes = 0;
+    const voters = [];
+    let currentVote = '';
+
+    // Referências aos elementos
+    const voteBoyButton = document.getElementById('voteBoy');
+    const voteGirlButton = document.getElementById('voteGirl');
+    const nameInputContainer = document.getElementById('nameInputContainer');
+    const nameInput = document.getElementById('nameInput');
+    const confirmNameButton = document.getElementById('confirmNameButton');
+    const resultsChart = document.getElementById('resultsChart');
+    const toggleListButton = document.getElementById('toggleListButton');
+    const voterList = document.getElementById('voterList');
+
+    // Funções de voto
+    voteBoyButton.addEventListener('click', () => {
+        currentVote = 'Menino'; // Define o voto atual
+        showNameInput();
+    });
+
+    voteGirlButton.addEventListener('click', () => {
+        currentVote = 'Menina'; // Define o voto atual
+        showNameInput();
+    });
+
+    // Exibe o campo de entrada para o nome
+    function showNameInput() {
+        nameInputContainer.style.display = 'flex';
+        nameInput.placeholder = "seu nome";
+        nameInput.focus();
     }
-});
 
-// Confirmação de voto ao clicar no ícone
-confirmNameButton.addEventListener('click', confirmVote);
-
-function confirmVote() {
-    const name = nameInput.value.trim();
-    if (name) {
-        // Adiciona o voto correspondente
-        if (currentVote === 'Menino') {
-            boyVotes++;
-        } else {
-            girlVotes++;
+    // Captura o evento de Enter
+    nameInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            confirmVote();
         }
+    });
 
-        voters.push({ name, vote: currentVote }); // Armazena o votante
-        nameInput.value = ''; // Limpa o campo de entrada
-        nameInputContainer.style.display = 'none'; // Oculta o campo
-        updateChart();
-        toggleListButton.style.display = voters.length > 0 ? 'block' : 'none'; // Exibe o botão de lista se houver votos
-        displayVoterList();
-    }
-}
+    // Confirmação de voto ao clicar no ícone
+    confirmNameButton.addEventListener('click', confirmVote);
 
-// Configuração do gráfico
-let resultsChartInstance;
+    async function confirmVote() {
+        const name = nameInput.value.trim();
+        if (name) {
+            // Atualiza os votos no Firestore
+            const voteRef = doc(db, "votes", "voteResults");
+            const voterRef = doc(db, "voters", name);
 
-function updateChart() {
-    const ctx = resultsChart.getContext('2d');
-    if (resultsChartInstance) {
-        resultsChartInstance.destroy();
-    }
-    resultsChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['👦 Menino', '👧 Menina'],
-            datasets: [{
-                label: 'Votos',
-                data: [boyVotes, girlVotes],
-                backgroundColor: ['#87CEEB', '#FFB6C1'],
-                borderWidth: 2,
-                borderColor: '#FFF',
-                hoverOffset: 8
-            }]
-        },
-        options: {
-            plugins: {
-                tooltip: {
-                    backgroundColor: '#FFF',
-                    titleColor: '#000',
-                    bodyColor: '#000',
-                    borderWidth: 1,
-                    borderColor: '#87CEEB'
+            try {
+                const voteDoc = await getDoc(voteRef);
+                if (voteDoc.exists()) {
+                    const data = voteDoc.data();
+                    boyVotes = data.boyVotes;
+                    girlVotes = data.girlVotes;
+
+                    if (currentVote === 'Menino') {
+                        boyVotes++;
+                    } else {
+                        girlVotes++;
+                    }
+
+                    // Atualiza o número de votos no Firestore
+                    await updateDoc(voteRef, {
+                        boyVotes: boyVotes,
+                        girlVotes: girlVotes
+                    });
+                } else {
+                    // Se o documento ainda não existir, cria um novo
+                    await setDoc(voteRef, {
+                        boyVotes: currentVote === 'Menino' ? 1 : 0,
+                        girlVotes: currentVote === 'Menina' ? 1 : 0
+                    });
                 }
+
+                // Armazena o votante no Firestore
+                await setDoc(voterRef, {
+                    name: name,
+                    vote: currentVote
+                });
+
+                nameInput.value = ''; // Limpa o campo de entrada
+                nameInputContainer.style.display = 'none'; // Oculta o campo
+                updateChart(); // Atualiza o gráfico
+                displayVoterList(); // Atualiza a lista de votantes
+            } catch (error) {
+                console.error("Erro ao salvar voto: ", error);
             }
         }
-    });
-}
+    }
 
-// Função para exibir/ocultar a lista de votantes
-toggleListButton.addEventListener('click', () => {
-    voterList.style.display = voterList.style.display === 'none' ? 'block' : 'none';
+    // Função para obter os votos do Firestore e atualizar o gráfico
+    function loadVotes() {
+        const voteRef = doc(db, "votes", "voteResults");
+
+        onSnapshot(voteRef, (doc) => {
+            if (doc.exists()) {
+                const data = doc.data();
+                boyVotes = data.boyVotes;
+                girlVotes = data.girlVotes;
+                updateChart();
+            }
+        });
+    }
+
+    // Função para carregar a lista de votantes do Firestore
+    function loadVoters() {
+        const voterRef = doc(db, "voters");
+
+        onSnapshot(voterRef, (querySnapshot) => {
+            voters.length = 0;
+            querySnapshot.forEach((doc) => {
+                voters.push(doc.data());
+            });
+            displayVoterList();
+        });
+    }
+
+    // Configuração do gráfico
+    let resultsChartInstance;
+
+    function updateChart() {
+        const ctx = resultsChart.getContext('2d');
+        if (resultsChartInstance) {
+            resultsChartInstance.destroy();
+        }
+        resultsChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['👦 Menino', '👧 Menina'],
+                datasets: [{
+                    label: 'Votos',
+                    data: [boyVotes, girlVotes],
+                    backgroundColor: ['#87CEEB', '#FFB6C1'],
+                    borderWidth: 2,
+                    borderColor: '#FFF',
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                plugins: {
+                    tooltip: {
+                        backgroundColor: '#FFF',
+                        titleColor: '#000',
+                        bodyColor: '#000',
+                        borderWidth: 1,
+                        borderColor: '#87CEEB'
+                    }
+                }
+            }
+        });
+    }
+
+    // Função para exibir/ocultar a lista de votantes
+    toggleListButton.addEventListener('click', () => {
+        voterList.style.display = voterList.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Função para atualizar a lista de votantes
+    function displayVoterList() {
+        voterList.innerHTML = '';
+        voters.forEach(voter => {
+            const li = document.createElement('li');
+            li.textContent = `${voter.name} votou em ${voter.vote}`;
+            voterList.appendChild(li);
+        });
+    }
+
+    // Carrega votos e votantes do Firestore
+    loadVotes();
+    loadVoters();
+}).catch(error => {
+    console.error("Erro ao inicializar o Firebase: ", error);
 });
-
-// Função para atualizar a lista de votantes
-function displayVoterList() {
-    voterList.innerHTML = '';
-    voters.forEach(voter => {
-        const li = document.createElement('li');
-        li.textContent = `${voter.name} votou em ${voter.vote}`;
-        voterList.appendChild(li);
-    });
-}
-
-// Inicializa a lista de votantes
-displayVoterList();
-updateChart();
