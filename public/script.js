@@ -91,11 +91,6 @@ function updateChart() {
                     borderWidth: 1,
                     borderColor: '#87CEEB'
                 }
-            },
-            animation: {
-                animateScale: true,
-                duration: 2000,
-                easing: 'easeOutElastic'
             }
         }
     });
