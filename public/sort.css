@@ -1,0 +1,31 @@
+.results {
+    padding: 20px;
+    text-align: center;
+    background-color: #FFF5E1;
+    border-radius: 10px;
+}
+
+.voting-group {
+    margin-bottom: 30px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007EB5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #005f8b;
+}
+
+.winner {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007EB5;
+}

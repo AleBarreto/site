@@ -52,6 +52,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+app.get('/sort', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/sort.html'));
+});
+
 // Rota para obter votos
 app.get('/votes', async (req, res) => {
     const voteRef = doc(db, "votes", "voteResults");
