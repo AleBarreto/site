@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteio de Votantes</title>
     <link rel="stylesheet" href="sort.css">
+    <title>Lista de Votantes</title>
 </head>
 <body>
-    <div class="results">
-        <h2>Sorteio de Votantes</h2>
+    <div class="container">
+        <h1 class="title">Votantes do Chá Revelação</h1>
 
-        <div class="voting-group">
-            <h3>Votantes Menino</h3>
-            <ul id="boyVoterList"></ul>
-            <button id="boyDrawButton">Sortear Menino</button>
-            <p id="boyWinner" class="winner"></p>
+        <div class="voter-section">
+            <h2 class="subtitle">Votantes em Menino</h2>
+            <ul id="boyVoterList" class="voter-list"></ul>
+            <button id="boyDrawButton" class="draw-button">Sortear Menino</button>
+            <div id="boyWinner" class="winner"></div>
         </div>
 
-        <div class="voting-group">
-            <h3>Votantes Menina</h3>
-            <ul id="girlVoterList"></ul>
-            <button id="girlDrawButton">Sortear Menina</button>
-            <p id="girlWinner" class="winner"></p>
+        <div class="voter-section">
+            <h2 class="subtitle">Votantes em Menina</h2>
+            <ul id="girlVoterList" class="voter-list"></ul>
+            <button id="girlDrawButton" class="draw-button">Sortear Menina</button>
+            <div id="girlWinner" class="winner"></div>
         </div>
-
-        <script type="module" src="sort.js"></script>
     </div>
+
+    <script src="sort.js" type="module"></script>
 </body>
 </html>

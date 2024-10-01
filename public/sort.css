@@ -1,31 +1,72 @@
-.results {
-    padding: 20px;
-    text-align: center;
+body {
     background-color: #FFF5E1;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #007EB5;
+}
+
+.subtitle {
+    margin-top: 20px;
+    font-size: 1.8em;
+    color: #007EB5;
+}
+
+.voter-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #007EB5;
     border-radius: 10px;
 }
 
-.voting-group {
-    margin-bottom: 30px;
+.voter-list {
+    list-style-type: none;
+    padding: 0;
 }
 
-button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #007EB5;
+.voter-list li {
+    padding: 8px;
+    border-bottom: 1px solid #007EB5;
+}
+
+.voter-list li:last-child {
+    border-bottom: none;
+}
+
+.draw-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    font-size: 1.2em;
     color: white;
+    background-color: #38BB9C;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #005f8b;
+.draw-button:hover {
+    background-color: #007EB5;
 }
 
 .winner {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007EB5;
+    margin-top: 10px;
+    font-size: 1.5em;
+    color: #FF6347; /* Tomato */
+    text-align: center;
 }
