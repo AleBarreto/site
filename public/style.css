@@ -140,3 +140,20 @@ footer p {
 input[type="text"] {
     font-size: 16px;  /* Evita o zoom no iOS */
 }
+
+/* Estilo para o loader */
+.loading-spinner {
+    border: 8px solid #f3f3f3; /* Cor de fundo do loader */
+    border-top: 8px solid #3498db; /* Cor da borda que será animada */
+    border-radius: 50%; /* Torna o elemento circular */
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite; /* Animação para girar o loader */
+    margin: 20px auto; /* Centraliza o loader */
+}
+
+/* Animação de rotação */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

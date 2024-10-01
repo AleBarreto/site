@@ -42,6 +42,7 @@ getFirebaseConfig().then(firebaseConfig => {
     const resultsChart = document.getElementById('resultsChart');
     const toggleListButton = document.getElementById('toggleListButton');
     const voterList = document.getElementById('voterList');
+    const loadingIndicator = document.getElementById('loadingIndicator');
 
     // Funções de voto
     voteBoyButton.addEventListener('click', () => {
@@ -123,6 +124,7 @@ getFirebaseConfig().then(firebaseConfig => {
     // Função para obter os votos do Firestore e atualizar o gráfico
     function loadVotes() {
         const voteRef = doc(db, "votes", "voteResults");
+        loadingIndicator.style.display = 'block';
 
         onSnapshot(voteRef, (doc) => {
             if (doc.exists()) {
@@ -130,6 +132,7 @@ getFirebaseConfig().then(firebaseConfig => {
                 boyVotes = data.boyVotes;
                 girlVotes = data.girlVotes;
                 updateChart();
+                loadingIndicator.style.display = 'none';
             }
         });
     }
