@@ -22,6 +22,10 @@ getFirebaseConfig().then(firebaseConfig => {
     signInAnonymously(auth)
         .then(() => {
             console.log("Usuário autenticado anonimamente.");
+
+            // Carrega votos e votantes do Firestore após a autenticação
+            loadVotes();
+            loadVoters();
         })
         .catch((error) => {
             console.error("Erro na autenticação anônima: ", error);
@@ -206,9 +210,6 @@ getFirebaseConfig().then(firebaseConfig => {
         }
     }
 
-    // Carrega votos e votantes do Firestore
-    loadVotes();
-    loadVoters();
 }).catch(error => {
     console.error("Erro ao inicializar o Firebase: ", error);
 });
