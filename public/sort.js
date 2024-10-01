@@ -66,25 +66,39 @@ getFirebaseConfig().then(firebaseConfig => {
             });
         }
     
-        // Função de sorteio aleatório
-        function drawWinner(voters, winnerElement) {
-            if (voters.length > 0) {
-                const randomIndex = Math.floor(Math.random() * voters.length);
-                const winner = voters[randomIndex];
-                winnerElement.textContent = `Sorteado: ${winner}`;
-            } else {
-                winnerElement.textContent = 'Nenhum votante para sortear.';
+        document.getElementById("boyDrawButton").addEventListener("click", function() {
+            drawWinner(boyVoters, "boyWinner");
+        });
+        
+        document.getElementById("girlDrawButton").addEventListener("click", function() {
+            drawWinner(girlVoters, "girlWinner");
+        });
+        
+        function drawWinner(voters, winnerId) {
+            if (voters.length === 0) {
+                alert("Não há votantes!");
+                return;
+            }
+        
+            // Escolhe um vencedor aleatório
+            const winner = voters[Math.floor(Math.random() * voters.length)];
+        
+            // Exibe o vencedor
+            const winnerDisplay = document.getElementById(winnerId);
+            winnerDisplay.textContent = `Vencedor: ${winner}`;
+        
+            // Animação nos votantes
+            const voterListItems = document.querySelectorAll(`#${winnerId === "boyWinner" ? "boyVoterList" : "girlVoterList"} li`);
+        
+            // Remove a classe de destaque de todos os itens
+            voterListItems.forEach(item => item.classList.remove("highlight"));
+        
+            // Adiciona a classe de destaque ao vencedor
+            const winningItem = Array.from(voterListItems).find(item => item.textContent === winner);
+            if (winningItem) {
+                winningItem.classList.add("highlight");
             }
         }
-    
-        // Adicionar eventos aos botões de sorteio
-        boyDrawButton.addEventListener('click', () => {
-            drawWinner(boyVoters, boyWinner);
-        });
-    
-        girlDrawButton.addEventListener('click', () => {
-            drawWinner(girlVoters, girlWinner);
-        });
 
 
 }).catch(error => {

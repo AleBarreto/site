@@ -70,3 +70,19 @@ body {
     color: #FF6347; /* Tomato */
     text-align: center;
 }
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(255, 99, 71, 0.5); /* Cor de fundo inicial */
+    }
+    50% {
+        background-color: rgba(255, 99, 71, 1); /* Cor de fundo quando destacado */
+    }
+    100% {
+        background-color: transparent; /* Volta para transparente */
+    }
+}
+
+.highlight {
+    animation: highlight 0.5s forwards; /* Animação aplicada */
+}
