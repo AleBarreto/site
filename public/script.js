@@ -112,8 +112,8 @@ getFirebaseConfig().then(firebaseConfig => {
 
                 nameInput.value = ''; // Limpa o campo de entrada
                 nameInputContainer.style.display = 'none'; // Oculta o campo
-                updateChart(); // Atualiza o gráfico
-                displayVoterList(); // Atualiza a lista de votantes
+                // updateChart(); // Atualiza o gráfico
+                // displayVoterList(); // Atualiza a lista de votantes
             } catch (error) {
                 console.error("Erro ao salvar voto: ", error);
             }
