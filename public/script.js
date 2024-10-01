@@ -195,6 +195,12 @@ getFirebaseConfig().then(firebaseConfig => {
             li.textContent = `${voter.name} votou em ${voter.vote}`;
             voterList.appendChild(li);
         });
+        // Exibe o botão de alternância se houver votantes
+        if (voters.length > 0) {
+            toggleListButton.style.display = 'block'; // Torna o botão visível
+        } else {
+            toggleListButton.style.display = 'none'; // Esconde o botão se não houver votantes
+        }
     }
 
     // Carrega votos e votantes do Firestore
