@@ -47,6 +47,7 @@ getFirebaseConfig().then(firebaseConfig => {
     const toggleListButton = document.getElementById('toggleListButton');
     const voterList = document.getElementById('voterList');
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const ploading = document.getElementById('ploading');
 
     // Funções de voto
     voteBoyButton.addEventListener('click', () => {
@@ -129,6 +130,7 @@ getFirebaseConfig().then(firebaseConfig => {
     function loadVotes() {
         const voteRef = doc(db, "votes", "voteResults");
         loadingIndicator.style.display = 'block';
+        ploading.style.display = 'block';
 
         onSnapshot(voteRef, (doc) => {
             if (doc.exists()) {
@@ -136,6 +138,7 @@ getFirebaseConfig().then(firebaseConfig => {
                 boyVotes = data.boyVotes;
                 girlVotes = data.girlVotes;
                 updateChart();
+                ploading.style.display = 'none';
                 loadingIndicator.style.display = 'none';
             }
         });
